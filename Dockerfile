@@ -1,0 +1,32 @@
+FROM debian:jessie
+LABEL Description="This image is used to configure and start ODR-DabMod" \
+	 Vendor="Wroclaw University of Technology" \
+	 Version="0.1"
+RUN apt-get update && apt-get install -y libboost-all-dev libusb-1.0-0-dev \ 
+	python-mako doxygen python-docutils cmake build-essential pkg-config  autoconf automake \
+	fftw3-dev \
+	git \
+	zip \
+	vlc libvlc-dev jack libjack-dev \
+	libasound2-dev \
+	imagemagick libmagickwand-dev \
+	curl libcurl3 libcurl3-dev php5-curl
+WORKDIR /usr/odrdab
+ 
+RUN curl -sLo k9q-fec.zip https://github.com/Opendigitalradio/ka9q-fec/archive/v3.0.1-odr1.zip &&\
+	 unzip k9q-fec.zip && cd ka9q-fec-3.0.1-odr1 && mkdir build && cd build && cmake ../ &&\
+	 make && make install 
+RUN curl -sLo libzmq-4.2.2.zip https://github.com/zeromq/libzmq/archive/v4.2.2.zip &&\
+	  unzip libzmq-4.2.2.zip && cd libzmq-4.2.2 &&./autogen.sh && ./configure && make &&\
+	 make install && ldconfig 
+RUN curl -sLo uhd-release_003_009_006.zip https://github.com/EttusResearch/uhd/archive/release_003_009_006.zip &&\
+	 unzip uhd-release_003_009_006.zip && cd uhd-release_003_009_006/host && mkdir build && cd build &&\
+	 cmake ../&& make && make install && ldconfig 
+RUN curl -sLo ODR-DabMod-1.0.0.zip https://github.com/Opendigitalradio/ODR-DabMod/archive/v1.0.0.zip &&\
+	 unzip ODR-DabMod-1.0.0.zip && cd ODR-DabMod-1.0.0 && ./bootstrap.sh && ./configure && make &&\
+	 make install
+
+ADD  https://raw.githubusercontent.com/pepisp/LokalDabConf/master/DabMod/lokDabMod_async.ini lokDabMod_async.ini
+
+CMD odr-dabmod lokDabMod_async.ini
+
