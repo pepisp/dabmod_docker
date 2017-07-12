@@ -22,18 +22,17 @@ RUN curl -sLo libzmq-4.2.2.zip https://github.com/zeromq/libzmq/archive/v4.2.2.z
 	 make install && ldconfig 
 	 
 RUN curl -sLo fdk-aac-dabplus.zip https://github.com/Opendigitalradio/fdk-aac/archive/dabplus.zip &&\
-	  unzip fdk-aac-dabplus.zip && cd fdk-aac-dabplus/fdk-aac-dabplus &&./autogen.sh && ./configure && make &&\
+	  unzip fdk-aac-dabplus.zip && cd fdk-aac-dabplus &&./autogen.sh && ./configure && make &&\
 	 make install && ldconfig 
 	 
 RUN curl -sLo ODR-AudioEnc-2.1.0.zip https://github.com/Opendigitalradio/ODR-AudioEnc/archive/v2.1.0.zip &&\
-	  unzip ODR-AudioEnc-2.1.0.zip && cd ODR-AudioEnc-2.1.0/ODR-AudioEnc-2.1.0 &&./bootstrap && ./configure &&\
+	  unzip ODR-AudioEnc-2.1.0.zip && cd ODR-AudioEnc-2.1.0 &&./bootstrap && ./configure &&\
 	 ./configure --enable-alsa --enable-jack --enable-vlc && make && make install
 	 
 RUN curl -sLo ODR-PadEnc-2.1.1.zip https://github.com/Opendigitalradio/ODR-PadEnc/archive/v2.1.1.zip &&\
-	 unzip ODR-PadEnc-2.1.1.zip && cd ODR-PadEnc-2.1.1/ODR-PadEnc-2.1.1 &&./bootstrap && ./configure &&\
+	 unzip ODR-PadEnc-2.1.1.zip && cd ODR-PadEnc-2.1.1 &&./bootstrap && ./configure &&\
 	 make && make install
-	 
-ADD  https://raw.githubusercontent.com/pepisp/LokalDabConf/master/DabMux/LocalDAB.mux LocalDAB.mux
+
 
 CMD odr-audioenc -v http://stream4.nadaje.com:9220/ram -o tcp://127.0.0.1:9001 -l -r 48000 -b 96 -VVV
 
