@@ -4,6 +4,7 @@ LABEL Description="This image is used to configure and start ODR-DabMod" \
 	 Version="0.1"
 RUN apt-get update && apt-get install -y libboost-all-dev libusb-1.0-0-dev \ 
 	python-mako doxygen python-docutils cmake build-essential pkg-config  autoconf automake \
+	python-requests\
 	fftw3-dev \
 	git \
 	zip \
@@ -25,8 +26,11 @@ RUN curl -sLo uhd-release_003_009_006.zip https://github.com/EttusResearch/uhd/a
 RUN curl -sLo ODR-DabMod-1.0.0.zip https://github.com/Opendigitalradio/ODR-DabMod/archive/v1.0.0.zip &&\
 	 unzip ODR-DabMod-1.0.0.zip && cd ODR-DabMod-1.0.0 && ./bootstrap.sh && ./configure && make &&\
 	 make install
+RUN python /usr/local/lib/uhd/utils/uhd_images_downloader.py
 
-ADD  https://raw.githubusercontent.com/pepisp/LokalDabConf/master/DabMod/lokDabMod_async.ini lokDabMod_async.ini
+VOLUME ~/dabmod_conf/lokDabMod_async.ini:/usr/odrdab lokdabmod/lokDabMod_async.ini
+
+#ADD  https://raw.githubusercontent.com/pepisp/LokalDabConf/master/DabMod/lokDabMod_async.ini lokDabMod_async.ini
 
 CMD odr-dabmod lokDabMod_async.ini
 
