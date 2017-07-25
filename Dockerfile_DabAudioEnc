@@ -34,5 +34,5 @@ RUN curl -sLo ODR-PadEnc-2.1.1.zip https://github.com/Opendigitalradio/ODR-PadEn
 	 make && make install
 
 
-CMD odr-audioenc -v http://stream4.nadaje.com:9220/ram -o tcp://127.0.0.1:9001 -l -r 48000 -b 96 -VVV
+#CMD odr-audioenc -v http://stream4.nadaje.com:9220/ram -o tcp://127.0.0.1:9001 -l -r 48000 -b 96 -VVV
 
