@@ -25,13 +25,6 @@ RUN curl -sLo fdk-aac-dabplus.zip https://github.com/Opendigitalradio/fdk-aac/ar
 	  unzip fdk-aac-dabplus.zip && cd fdk-aac-dabplus &&./autogen.sh && ./configure && make &&\
 	 make install && ldconfig
 
-RUN curl -sLo ODR-AudioEnc-2.1.0.zip https://github.com/Opendigitalradio/ODR-AudioEnc/archive/v2.1.0.zip &&\
-	  unzip ODR-AudioEnc-2.1.0.zip && cd ODR-AudioEnc-2.1.0 &&./bootstrap && ./configure &&\
-	 ./configure --enable-alsa --enable-jack --enable-vlc && make && make install
-
-RUN curl -sLo ODR-PadEnc-2.1.1.zip https://github.com/Opendigitalradio/ODR-PadEnc/archive/v2.1.1.zip &&\
-	 unzip ODR-PadEnc-2.1.1.zip && cd ODR-PadEnc-2.1.1 &&./bootstrap && ./configure &&\
-	 make && make install
 
 RUN curl -sLo ODR-DabMux-1.3.1.zip https://github.com/Opendigitalradio/ODR-DabMux/archive/v1.3.1.zip &&\
 	 unzip ODR-DabMux-1.3.1.zip && cd ODR-DabMux-1.3.1 && ./bootstrap.sh && ./configure && make && make install
