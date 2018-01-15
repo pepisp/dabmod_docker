@@ -34,7 +34,7 @@ RUN curl -sLo ODR-PadEnc-2.1.1.zip https://github.com/Opendigitalradio/ODR-PadEn
 	 make && make install
 
 RUN curl -sLo ODR-DabMux-1.3.1.zip https://github.com/Opendigitalradio/ODR-DabMux/archive/v1.3.1.zip &&\
-	 unzip ODR-DabMux-1.3.1.zip && cd ODR-DabMux-1.3.1 && ./configure && make && make install
+	 unzip ODR-DabMux-1.3.1.zip && cd ODR-DabMux-1.3.1 && ./bootstrap.sh && ./configure && make && make install
 
 ADD  https://raw.githubusercontent.com/pepisp/LokalDabConf/master/DabMux/LocalDAB.mux LocalDAB.mux
 
