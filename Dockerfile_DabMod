@@ -28,8 +28,8 @@ RUN curl -sLo ODR-DabMod-1.1.0.zip https://github.com/Opendigitalradio/ODR-DabMo
 	 make install
 RUN python /usr/local/lib/uhd/utils/uhd_images_downloader.py
 
-VOLUME ~/dabmod_conf/lokDabMod_async.ini:/usr/odrdab/lokDabMod_async.ini
+VOLUME /home/ldadmin/dabmod_conf/lokDabMod_async.ini:/usr/odrdab/lokDabMod_async.ini
 
-#ADD  https://raw.githubusercontent.com/pepisp/LokalDabConf/master/DabMod/lokDabMod_async.ini lokDabMod_async.ini
+ADD  https://raw.githubusercontent.com/pepisp/LokalDabConf/master/DabMod/lokDabMod_async.ini lokDabMod_async.ini
 
 CMD odr-dabmod lokDabMod_async.ini
