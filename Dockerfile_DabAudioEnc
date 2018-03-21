@@ -32,8 +32,9 @@ RUN curl -sLo ODR-AudioEnc-2.2.0.zip https://github.com/Opendigitalradio/ODR-Aud
 RUN curl -sLo ODR-PadEnc-2.2.0.zip https://github.com/Opendigitalradio/ODR-PadEnc/archive/v2.2.0.zip &&\
 	 unzip ODR-PadEnc-2.2.0.zip && cd ODR-PadEnc-2.2.0 &&./bootstrap && ./configure &&\
 	 make && make install
-RUN mkfifo pad.fifo
-
+RUN mkfifo pad1.fifo
+RUN mkfifo pad2.fifo
+RUN mkfifo pad3.fifo
 
 ARG STREAM_PATH=http://stream4.nadaje.com:9220/ram
 CMD odr-audioenc -v $STREAM_PATH -o tcp://127.0.0.1:9001 -l -r 48000 -b 96 -VVV
